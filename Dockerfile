@@ -8,8 +8,8 @@ RUN mkdir -p $STUN_HOME && chown -R $STUN_USER:$STUN_USER $STUN_HOME
 USER $STUN_USER
 WORKDIR $STUN_HOME
 RUN mkdir -p stun-server health-server
-COPY ./stun/main.go stun-server/main.go
-COPY ./healthcheck/main.go health-server/main.go
+COPY ./stun-server/main.go stun-server/main.go
+COPY ./health-server/main.go health-server/main.go
 COPY run_services.sh run_services.sh
 EXPOSE 3478/udp
 EXPOSE 8888/tcp
