@@ -33,7 +33,6 @@ func tcpHealthCheckListener(l *net.TCPListener) {
 		conn.SetKeepAlivePeriod(1 * time.Minute)
 		if err != nil {
 			fmt.Println(err)
-			return
 		}
 		go func() {
 			handleTcpConection(conn)
