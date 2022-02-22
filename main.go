@@ -4,10 +4,27 @@ import (
 	"encoding/binary"
 	"flag"
 	"fmt"
+	"io"
 	"net"
 	"os"
 	"time"
 )
+
+func handleTcpConection(conn net.Conn) {
+	defer conn.Close()
+	buf := make([]byte, 2)
+	for {
+		n, err := conn.Read(buf)
+		if err != nil && err != io.EOF {
+			fmt.Println("read error", err)
+			return
+		}
+		if n == 0 {
+			return
+		}
+		fmt.Printf("received healthcheck from %v\n", conn.RemoteAddr())
+	}
+}
 
 func tcpHealthCheckListener(l *net.TCPListener) {
 	for {
@@ -16,8 +33,11 @@ func tcpHealthCheckListener(l *net.TCPListener) {
 		conn.SetKeepAlivePeriod(1 * time.Minute)
 		if err != nil {
 			fmt.Println(err)
+			return
 		}
-		defer conn.Close()
+		go func() {
+			handleTcpConection(conn)
+		}()
 	}
 }
 
