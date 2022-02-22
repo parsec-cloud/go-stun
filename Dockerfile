@@ -13,8 +13,8 @@ COPY ./healthcheck/main.go health-server/main.go
 COPY run_services.sh run_services.sh
 EXPOSE 3478/udp
 EXPOSE 8888/tcp
-RUN GO111MODULE=off CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o stun-server/server stun-server/main.go 
-RUN GO111MODULE=off CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o health-server/server health-server/main.go 
+RUN GO111MODULE=off CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o stun-server/service stun-server/main.go 
+RUN GO111MODULE=off CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o health-server/service health-server/main.go 
 CMD ["./run_services.sh"]
 
 # docker build --build-arg USER_ID=1234 --build-arg GROUP_ID=1234 -t stun-server .

@@ -1,10 +1,10 @@
 #!/bin/bash
 
 # Start the stun server process
-./stun-server/server &
+./stun-server/service &
   
 # Start the health check side-car service process
-./health-server/server &
+./health-server/service &
   
 # Wait for any of the process to exit
 wait -n
