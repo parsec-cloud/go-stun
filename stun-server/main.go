@@ -7,9 +7,6 @@ import (
 )
 
 func isv4(ip []byte) bool {
-	if len(ip) < 4 {
-		return false
-	}
 	return binary.BigEndian.Uint32(ip[0:4]) == 0 && binary.BigEndian.Uint64(ip[4:12]) == 0xffff
 }
 
